@@ -2,6 +2,7 @@
 
 [![R-CMD-check](https://github.com/urppeia/shannonR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/urppeia/shannonR/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/urppeia/shannonR/branch/main/graph/badge.svg)](https://codecov.io/gh/urppeia/shannonR)
+
 ## Overview
 `ShannonR` is an `R` package designed for advanced analysis of 
 methylation data, developed as part of the **URPP Evolution in Action**: 
