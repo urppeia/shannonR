@@ -29,17 +29,13 @@ jobs:
         with:
           r-version: ${{ matrix.config.r-version }}
 
-      - name: Install dependencies
+      - name: Install renv and restore environment
         run: |
-          install.packages("remotes")
-          if (!requireNamespace("BiocManager", quietly = TRUE)) {
-            install.packages("BiocManager")
+          install.packages("renv")
+          renv::restore()
+          if (!requireNamespace("rcmdcheck", quietly = TRUE)) {
+            renv::install("rcmdcheck")
           }
-          if (isTRUE(as.logical("${{ matrix.config.bioc || 'false' }}"))) {
-            BiocManager::install()
-            BiocManager::install(version = "devel", ask = FALSE)
-          }
-          remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Check
