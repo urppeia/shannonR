@@ -20,21 +20,28 @@ jobs:
           # r-version: 'release'
 
       - name: Install dependencies and self
-        # Using Rscript with -e and piping the output to cat for better visibility
-        # Also, adding --no-lock to install.packages to avoid renv interference if not intended
+        # Use bash shell to chain Rscript commands
+        shell: bash
         run: |
-          Rscript -e 'install.packages(c("devtools", "covr"))' --no-lock-dir
-          Rscript -e 'devtools::install_deps(dependencies = TRUE)'
+          echo "Installing devtools and covr..."
+          Rscript -e 'install.packages(c("devtools", "covr"), repos = "https://cloud.r-project.org")' || exit 1
+
+          echo "Installing package dependencies..."
+          Rscript -e 'devtools::install_deps(dependencies = TRUE)' || exit 1
+
+          echo "Installing the current package (shannonR)..."
           # Use verbose output for devtools::install to aid debugging
-          Rscript -e 'devtools::install(".", dependencies = FALSE, upgrade = "never", build_vignettes = FALSE, INSTALL_opts = "--no-lock")'
-        # The default shell for R actions is Rscript {0}, so explicitly setting it is good practice
-        shell: Rscript {0}
+          # INSTALL_opts = "--no-lock" added to avoid renv lock file creation if not intended
+          Rscript -e 'devtools::install(".", dependencies = FALSE, upgrade = "never", build_vignettes = FALSE, INSTALL_opts = "--no-lock")' || exit 1
+          
+          echo "Installation complete."
 
       - name: Run tests and generate coverage
+        shell: Rscript {0}
         run: |
           # Ensure your package is loaded before running covr
-          Rscript -e 'library(shannonR); covr::codecov()'
-        shell: Rscript {0}
+          library(shannonR)
+          covr::codecov()
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
