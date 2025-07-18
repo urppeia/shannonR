@@ -1,4 +1,4 @@
-Package: shannon
+Package: shannonR
 Type: Package
 Title: Information-Theoretic Analysis of Genomic Data
 Version: 1.0.0
