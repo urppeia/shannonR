@@ -2,6 +2,7 @@
 
 [![Website](https://github.com/urppeia/shannonR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/urppeia/shannonR/actions/workflows/pkgdown.yaml)
 [![Codecov test coverage](https://codecov.io/gh/urppeia/shannonR/branch/main/graph/badge.svg)](https://codecov.io/gh/urppeia/shannonR)
+[![License](https://img.shields.io/github/license/urppeia/shannonR)](https://github.com/urppeia/shannonR/blob/main/LICENSE)
 
 ## Overview
 `ShannonR` is an `R` package designed for advanced analysis of 
