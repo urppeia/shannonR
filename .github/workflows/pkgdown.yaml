@@ -3,49 +3,64 @@ name: Build and Deploy pkgdown Site
 on:
   push:
     branches: [ main, master ]
-  workflow_dispatch: # Enables manual trigger button
+  workflow_dispatch:
 
 jobs:
   build-deploy-pkgdown:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: r-lib/actions/setup-r@v2
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev zlib1g-dev libbz2-dev liblzma-dev libssl-dev
+
       - name: Install renv
         run: |
           install.packages("renv")
         shell: Rscript {0}
+
       - name: Cache renv dependencies
         uses: actions/cache@v4
         with:
           path: ${{ env.R_RENV_PATHS_ROOT || '~/.local/share/renv' }}
           key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
           restore-keys: ${{ runner.os }}-renv-
+
       - name: Restore renv dependencies
         run: |
           renv::restore()
         shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::pkgdown
+
       - name: Install ShannonR
         run: |
           R CMD INSTALL .
         shell: bash
+
       - name: Build pkgdown site
         run: |
           pkgdown::build_site_github_pages(clean = TRUE, install = FALSE)
         shell: Rscript {0}
+
       - name: Verify docs folder
         run: |
           ls -R ./docs
           test -f ./docs/.nojekyll || echo ".nojekyll missing"
           test -f ./docs/index.html || echo "index.html missing"
         shell: bash
+
       - name: Create .nojekyll if missing
         run: |
           touch ./docs/.nojekyll
         shell: bash
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
