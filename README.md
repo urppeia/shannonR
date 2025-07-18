@@ -45,6 +45,21 @@ Here’s a basic example to get started with ShannonR:
 library(shannonR)
 ```
 
+## Using `renv`
+
+1. Clone the repo locally
+```
+git clone git@github.com:urppeia/shannonR.git
+```
+
+2. Open the project by opening `shannonR.Rproj` file
+
+3. Restore packages
+```
+install.packages("renv")
+renv::restore()
+```
+
 ## Contributing
 Contributions are welcome! Please follow these steps:
 
