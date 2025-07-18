@@ -34,10 +34,22 @@ jobs:
         shell: bash
       - name: Build pkgdown site
         run: |
-          pkgdown::build_site()
+          pkgdown::build_site_github_pages(clean = TRUE, install = FALSE)
         shell: Rscript {0}
+      - name: Verify docs folder
+        run: |
+          ls -R ./docs
+          test -f ./docs/.nojekyll || echo ".nojekyll missing"
+          test -f ./docs/index.html || echo "index.html missing"
+        shell: bash
+      - name: Create .nojekyll if missing
+        run: |
+          touch ./docs/.nojekyll
+        shell: bash
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+          force_orphan: true
+          cname: urppeia.github.io
