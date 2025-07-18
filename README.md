@@ -24,7 +24,7 @@ and pipelines.
 ## Installation
 To install `ShannonR`, you can use the following commands in R:
 
-```{r}
+```
 # Install devtools if not already installed
 install.packages("devtools")
 
@@ -35,7 +35,7 @@ devtools::install_github("urppeia/shannonR")
 ## Usage
 Here’s a basic example to get started with ShannonR:
 
-```{r}
+```
 # Load the library
 library(shannonR)
 ```
