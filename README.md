@@ -3,6 +3,10 @@
 [![Website](https://github.com/urppeia/shannonR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/urppeia/shannonR/actions/workflows/pkgdown.yaml)
 [![Codecov test coverage](https://codecov.io/gh/urppeia/shannonR/branch/main/graph/badge.svg)](https://codecov.io/gh/urppeia/shannonR)
 [![License](https://img.shields.io/github/license/urppeia/shannonR)](https://github.com/urppeia/shannonR/blob/main/LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://urppeia.github.io/shannonR/)
+[![Last Commit](https://img.shields.io/github/last-commit/urppeia/shannonR)](https://github.com/urppeia/shannonR/commits/main)
+[![GitHub issues](https://img.shields.io/github/issues/urppeia/shannonR)](https://github.com/urppeia/shannonR/issues)
+[![Dependencies](https://img.shields.io/badge/dependencies-analyzed-brightgreen.svg)](https://github.com/urppeia/shannonR/blob/main/DESCRIPTION)
 
 ## Overview
 `ShannonR` is an `R` package designed for advanced analysis of 
