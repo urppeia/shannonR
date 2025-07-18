@@ -15,12 +15,12 @@ jobs:
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
-        with:
-          # Optional: Specify R version, e.g., 'release', '4.3', '4.2'
-          # r-version: 'release'
+        # Remove the 'with:' block if you don't need any options,
+        # or ensure it has valid options like this:
+        # with:
+        #   r-version: '4.3' # Example: Use a specific R version
 
       - name: Install dependencies and self
-        # Use bash shell to chain Rscript commands
         shell: bash
         run: |
           echo "Installing devtools and covr..."
@@ -30,21 +30,18 @@ jobs:
           Rscript -e 'devtools::install_deps(dependencies = TRUE)' || exit 1
 
           echo "Installing the current package (shannonR)..."
-          # Use verbose output for devtools::install to aid debugging
-          # INSTALL_opts = "--no-lock" added to avoid renv lock file creation if not intended
           Rscript -e 'devtools::install(".", dependencies = FALSE, upgrade = "never", build_vignettes = FALSE, INSTALL_opts = "--no-lock")' || exit 1
-          
+
           echo "Installation complete."
 
       - name: Run tests and generate coverage
         shell: Rscript {0}
         run: |
-          # Ensure your package is loaded before running covr
           library(shannonR)
           covr::codecov()
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}  # Optional for public repo
+          token: ${{ secrets.CODECOV_TOKEN }}
           slug: urppeia/shannonR
